@@ -10,5 +10,4 @@ An early prototype of this system was created in C++ in 1998/1999. It was subseq
 
 License
 ---------------
-I haven't selected a license for this yet, but it will likely be MIT or BSD or an equivalent CC license. Code herein is (c) Matt Youell. Email/msg me if you need some kind of specific licensing. I'll try to get a license selected soon.
-
+This material is available under the MIT license. See license.txt in this repo.
