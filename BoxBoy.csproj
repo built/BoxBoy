@@ -54,6 +54,19 @@
     <Compile Include="MySqlUrl.cs" />
     <Compile Include="OracleUrl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\SqlBoxUpdateQuery.cs" />
+    <Compile Include="Queries\SqlBoxSelectQuery.cs" />
+    <Compile Include="Queries\SqlBoxInsertQuery.cs" />
+    <Compile Include="Queries\SqlBoxFindQuery.cs" />
+    <Compile Include="Queries\SqlBoxDeleteQuery.cs" />
+    <Compile Include="Queries\OracleDeleteQuery.cs" />
+    <Compile Include="Queries\OracleSelectQuery.cs" />
+    <Compile Include="Queries\MySqlDeleteQuery.cs" />
+    <Compile Include="Queries\MySqlSelectQuery.cs" />
+    <Compile Include="Queries\SqlBoxQuery.cs" />
+    <Compile Include="Queries\SqlServerDeleteQuery.cs" />
+    <Compile Include="Queries\SqlServerFindQuery.cs" />
+    <Compile Include="Queries\SqlServerSelectQuery.cs" />
     <Compile Include="SqlBox.cs" />
     <Compile Include="SqlBoxDatabase.cs" />
     <Compile Include="SqlServerUrl.cs" />
@@ -62,7 +75,6 @@
     <Compile Include="XmlBox.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Queries\" />
     <Folder Include="UnitTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

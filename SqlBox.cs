@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Text;
 using System.Xml;
+using Built.Data.Box.Queries;
+using Built.Text;
 
 namespace Built.Data.Box
 {
@@ -113,9 +115,9 @@ namespace Built.Data.Box
         {
             string str = "";
             XmlNode node = info.SelectSingleNode(itemName);
-            if ((node != null) && (node.get_InnerText() != null))
+            if ((node != null) && (node.InnerText != null))
             {
-                str = node.get_InnerText();
+                str = node.InnerText;
             }
             return str;
         }
@@ -137,13 +139,13 @@ namespace Built.Data.Box
                 if (info != null)
                 {
                     StringTheory theory2 = new StringTheory("0" + this.GetConfigurationItem("max_connections", info));
-                    this.Config.setDatabaseType(this.GetConfigurationItem("db_type", info.get_DocumentElement()));
-                    this.Config.setDriver(this.GetConfigurationItem("driver", info.get_DocumentElement()));
+                    this.Config.setDatabaseType(this.GetConfigurationItem("db_type", info.DocumentElement));
+                    this.Config.setDriver(this.GetConfigurationItem("driver", info.DocumentElement));
                     this.Config.setMaxConnections(theory2.ToInt());
-                    this.Config.setServer(this.GetConfigurationItem("server", info.get_DocumentElement()));
-                    this.Config.setDatabase(this.GetConfigurationItem("database", info.get_DocumentElement()));
-                    this.Config.setUser(this.GetConfigurationItem("user", info.get_DocumentElement()));
-                    this.Config.setPassword(this.GetConfigurationItem("password", info.get_DocumentElement()));
+                    this.Config.setServer(this.GetConfigurationItem("server", info.DocumentElement));
+                    this.Config.setDatabase(this.GetConfigurationItem("database", info.DocumentElement));
+                    this.Config.setUser(this.GetConfigurationItem("user", info.DocumentElement));
+                    this.Config.setPassword(this.GetConfigurationItem("password", info.DocumentElement));
                     flag = this.open();
                 }
             }

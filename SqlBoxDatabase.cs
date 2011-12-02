@@ -3,8 +3,10 @@ using System.Collections;
 using System.Data.OleDb;
 using System.Text;
 using System.Xml;
+using System.Data;
 using Built.Utilities;
-
+using Built.Data.Box.Queries;
+using Built.Text;
 
 namespace Built.Data.Box
 {
@@ -24,9 +26,9 @@ namespace Built.Data.Box
             try
             {
                 Hashtable hashtable = new Hashtable();
-                foreach (DataRow row in resultSet.GetSchemaTable().get_Rows())
+                foreach (DataRow row in resultSet.GetSchemaTable().Rows)
                 {
-                    hashtable.Add(row.get_Item("ColumnName").ToString(), null);
+                    hashtable.Add(row["ColumnName"].ToString(), null);
                 }
                 Hashtable hashtable2 = null;
                 while (resultSet.Read())
@@ -34,7 +36,7 @@ namespace Built.Data.Box
                     hashtable2 = (Hashtable)hashtable.Clone();
                     foreach (string str in hashtable.Keys)
                     {
-                        hashtable2[str] = resultSet.get_Item(str);
+                        hashtable2[str] = resultSet[str];
                         if (hashtable2[str] == null)
                         {
                             hashtable2[str] = "";
@@ -63,7 +65,7 @@ namespace Built.Data.Box
                 try
                 {
                     this.DbConnection = ConnectionManager.checkOutConnection(this.ConnectionUrl.ToString(), this.Config.getMaxConnections());
-                    flag = (this.DbConnection != null) && (this.DbConnection.get_State() == 1);
+                    flag = (this.DbConnection != null) && (this.DbConnection.State == System.Data.ConnectionState.Open);
                 }
                 catch (Exception exception)
                 {
@@ -173,7 +175,7 @@ namespace Built.Data.Box
                         str = "SELECT @@IDENTITY AS " + entity.getIdField();
                     }
                     OleDbCommand command = this.DbConnection.CreateCommand();
-                    command.set_CommandText(str.ToString());
+                    command.CommandText = str.ToString();
                     OleDbDataReader resultSet = command.ExecuteReader();
                     ArrayList results = new ArrayList();
                     this.CollectResultsInList(results, resultSet);
@@ -228,7 +230,7 @@ namespace Built.Data.Box
                         str = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='" + stream + "'";
                     }
                     OleDbCommand command = this.DbConnection.CreateCommand();
-                    command.set_CommandText(str.ToString());
+                    command.CommandText = str.ToString();
                     OleDbDataReader resultSet = command.ExecuteReader();
                     this.CollectResultsInList(list, resultSet);
                     resultSet.Close();
@@ -263,7 +265,7 @@ namespace Built.Data.Box
                         str = "SELECT * FROM INFORMATION_SCHEMA.TABLES";
                     }
                     OleDbCommand command = this.DbConnection.CreateCommand();
-                    command.set_CommandText(str.ToString());
+                    command.CommandText = str.ToString();
                     OleDbDataReader resultSet = command.ExecuteReader();
                     this.CollectResultsInList(list, resultSet);
                     resultSet.Close();
@@ -283,14 +285,14 @@ namespace Built.Data.Box
             if (!query.IsEmpty())
             {
                 this.m_lastQuery = query.ToString();
-                if ((this.DbConnection == null) || (this.DbConnection.get_State() != 1))
+                if ((this.DbConnection == null) || (this.DbConnection.State != System.Data.ConnectionState.Open))
                 {
                     return num;
                 }
                 try
                 {
                     OleDbCommand command = this.DbConnection.CreateCommand();
-                    command.set_CommandText(query.ToString());
+                    command.CommandText = query.ToString();
                     num = command.ExecuteNonQuery();
                 }
                 catch (Exception exception)
@@ -315,7 +317,7 @@ namespace Built.Data.Box
                 try
                 {
                     OleDbCommand command = this.DbConnection.CreateCommand();
-                    command.set_CommandText(query.ToString());
+                    command.CommandText = query.ToString();
                     OleDbDataReader resultSet = command.ExecuteReader();
                     this.CollectResultsInList(results, resultSet);
                     count = results.Count;
@@ -343,7 +345,7 @@ namespace Built.Data.Box
                 try
                 {
                     OleDbCommand command = this.DbConnection.CreateCommand();
-                    command.set_CommandText(query);
+                    command.CommandText = query;
                     OleDbDataReader resultSet = command.ExecuteReader();
                     this.CollectResultsInList(results, resultSet);
                     count = results.Count;

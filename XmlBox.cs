@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Text;
 using System.Xml;
+using Built.Text;
+using System.IO;
 
 namespace Built.Data.Box
 {
@@ -60,7 +62,7 @@ namespace Built.Data.Box
             {
                 theory.Prepend("/");
             }
-            return this.doc.get_DocumentElement().SelectSingleNode(theory.ToString());
+            return this.doc.DocumentElement.SelectSingleNode(theory.ToString());
         }
 
         public void Finalize()
@@ -80,9 +82,9 @@ namespace Built.Data.Box
         {
             string str = "";
             XmlNode node = info.SelectSingleNode(itemName);
-            if ((node != null) && (node.get_InnerText() != null))
+            if ((node != null) && (node.InnerText != null))
             {
-                str = node.get_InnerText();
+                str = node.InnerText;
             }
             return str;
         }
@@ -140,7 +142,7 @@ namespace Built.Data.Box
 
         protected void setFilenameUsingConfigXml(XmlDocument boxInfo)
         {
-            this.Filename = boxInfo.get_DocumentElement().SelectSingleNode("/xmlbox/filename").get_InnerText();
+            this.Filename = boxInfo.DocumentElement.SelectSingleNode("/xmlbox/filename").InnerText;
         }
 
         public override bool store(Item item)
